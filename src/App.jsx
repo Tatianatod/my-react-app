@@ -1,20 +1,102 @@
-import Card from './Card.jsx'
-import Button from './Button.jsx'
+import React, { useState } from 'react';
+import Items from './components/Items.jsx'
+import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
 
 export default function App() {
-  return (
-    <>
-      <Card name="Brazilian Bourbon" country="Brazil" weight="200 g">
-      <Button />
-      </Card>
-      
-      <Card name="Malabar Monsoon" country="India" weight="200 g">
-      <Button />
-      </Card>
+  const [orders, setOrders] = useState([])
+  const [items] = useState([
+    {
+      id: 1, 
+      name: "Brazilian Bourbon",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "Brazil", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
 
-      <Card name="Kopi Luwak" country="Indonesia" weight="200 g">
-      <Button />
-      </Card>
-    </> 
-  );
+    {
+      id: 2, 
+      name: "Malabar Monsoon",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "India", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
+
+    {
+      id: 3, 
+      name: "Kopi Luwak",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "Indonesia", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
+
+        {
+      id: 4, 
+      name: "Kopi Luwak",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "Indonesia", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
+
+        {
+      id: 5, 
+      name: "Kopi Luwak",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "Indonesia", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
+
+        {
+      id: 6, 
+      name: "Kopi Luwak",
+      img:"coffee.png",
+      desc:"lorem",
+      country: "Indonesia", 
+      weight: "200 g",
+      category: "beans",
+      price:"10"
+    },
+  ])
+
+//Remove from cart function
+  const deleteOrder = (id) => {
+    setOrders(orders.filter(el => el.id !== id))
+  }
+
+//Add to cart function  
+    const addToOrder = (item) => {
+      setOrders(prevOrders => {
+        const existing = prevOrders.find(el => el.id === item.id);
+        if (existing) {
+          return prevOrders.map(el => 
+            el.id === item.id ? { ...el, count: el.count + 1 } : el
+          );
+        } else {
+          return [...prevOrders, { ...item, count: 1}];
+        }
+      });
+  }
+
+  return (
+    <div className="wrapper">
+      <Header orders={orders} onDelete={deleteOrder}/>
+      <Items items={items} onAdd={addToOrder} />
+      <Footer />
+    </div>    
+  )
 }
