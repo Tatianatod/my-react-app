@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Items from './components/Items.jsx'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import Categories from './components/Categories.jsx';
 
 export default function App() {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [items] = useState([
     {
       id: 1, 
@@ -92,11 +94,33 @@ export default function App() {
       });
   }
 
+  //Items filter function
+  const filteredItems = items.filter(item => 
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+  );
+
+
+
   return (
     <div className="wrapper">
       <Header orders={orders} onDelete={deleteOrder}/>
+      <div className="search-container">
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
+      <Categories chooseCategory={chooseCategory}/>
       <Items items={items} onAdd={addToOrder} />
       <Footer />
     </div>    
   )
 }
+
+const chooseCategory = (category)  => {
+  console.log(category);
+}
+//<Categories chooseCategory={chooseCategory} />

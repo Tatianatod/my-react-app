@@ -15,5 +15,4 @@ const Order = ({ item, onDelete }) => {
     )
     }
 
-
 export default Order
