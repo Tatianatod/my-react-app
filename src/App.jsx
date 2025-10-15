@@ -1,4 +1,6 @@
+import ItemPage from './components/ItemPage.jsx';
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Items from './components/Items.jsx'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
@@ -12,7 +14,7 @@ export default function App() {
       id: 1, 
       name: "Brazilian Bourbon",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"A rich Brazilian coffee with caramel notes",
       country: "Brazil", 
       weight: "200 g",
       category: "beans",
@@ -23,7 +25,7 @@ export default function App() {
       id: 2, 
       name: "Malabar Monsoon",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"Indian coffee aged in monsoon winds for unique flavor",
       country: "India", 
       weight: "200 g",
       category: "beans",
@@ -34,7 +36,7 @@ export default function App() {
       id: 3, 
       name: "Kopi Luwak",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"Famous Indonesian coffee with smooth earthy taste",
       country: "Indonesia", 
       weight: "200 g",
       category: "beans",
@@ -43,9 +45,9 @@ export default function App() {
 
         {
       id: 4, 
-      name: "Kopi Luwak",
+      name: "Arabica Classic",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"Classic Arabica blend from Colombia",
       country: "Indonesia", 
       weight: "200 g",
       category: "beans",
@@ -54,9 +56,9 @@ export default function App() {
 
         {
       id: 5, 
-      name: "Kopi Luwak",
+      name: "Ethiopian Yirgacheffe",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"Floral and fruity Ethiopian beans",
       country: "Indonesia", 
       weight: "200 g",
       category: "beans",
@@ -65,9 +67,9 @@ export default function App() {
 
         {
       id: 6, 
-      name: "Kopi Luwak",
+      name: "Vietnam Robusta",
       img:"coffee.png",
-      desc:"lorem",
+      desc:"Strong and bold Vietnamese coffee",
       country: "Indonesia", 
       weight: "200 g",
       category: "beans",
@@ -89,12 +91,14 @@ export default function App() {
             el.id === item.id ? { ...el, count: el.count + 1 } : el
           );
         } else {
-          return [...prevOrders, { ...item, count: 1}];
+          const { desc, ...itemWithoutDesc } = item;
+          return [...prevOrders, { ...itemWithoutDesc, count: 1}];
         }
       });
   }
 
   //Items filter function
+  const chooseCategory = (category) => console.log(category);
   const filteredItems = items.filter(item => 
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
   );
@@ -102,21 +106,36 @@ export default function App() {
 
 
   return (
-    <div className="wrapper">
+      <Router>
       <Header orders={orders} onDelete={deleteOrder}/>
-      <div className="search-container">
-        <input 
-          type="text" 
-          placeholder="Search..." 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <div className="wrapper">
+              <div className="search-container">
+                <input 
+                  type="text" 
+                  placeholder="Search..." 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search-input"
+                />
+              </div>
+              <Categories chooseCategory={chooseCategory}/>
+              <Items items={filteredItems} onAdd={addToOrder} />
+              <Footer />
+            </div>
+          } 
         />
-      </div>
-      <Categories chooseCategory={chooseCategory}/>
-      <Items items={items} onAdd={addToOrder} />
-      <Footer />
-    </div>    
+
+        <Route 
+          path="/item/:id" 
+          element={<ItemPage items={items} onAdd={addToOrder} />} 
+        />
+      </Routes>
+    </Router>
+  
   )
 }
 
