@@ -6,6 +6,7 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -23,11 +24,11 @@ header {
 }
 
 header .logo {
-  @apply text-[70px] font-extrabold;
+  @apply text-[70px] font-extrabold ml-13;
 }
 
 header ul.nav {
-  @apply float-right list-none;
+  @apply float-right list-none mt-4 mr-10;
 }
 
 header ul.nav li {
@@ -39,7 +40,7 @@ header ul.nav li:hover {
 }
 
 header .shop-cart-button {
-  @apply float-right cursor-pointer transition-transform duration-500 ease-in-out;
+  @apply float-right text-2xl mt-3 cursor-pointer transition-transform duration-500 ease-in-out;
 }
 
 header .shop-cart-button:hover,
@@ -96,7 +97,7 @@ header .banner::after {
 }
 
 .categories  div {
-  @apply inline-block bg-amber-100 rounded-full px-5 py-2 mb-6 mr-4 cursor-pointer border;
+  @apply inline-block bg-amber-100 rounded-full px-5 py-2 mb-6 mr-4 cursor-pointer;
 }
 
 .categories div:hover {
@@ -119,7 +120,7 @@ main .item img:hover {
   @apply scale-105;
 }
 
-main h2, 
+main h2,
 main p, 
 main b {
   @apply mx-5 my-2 text-black

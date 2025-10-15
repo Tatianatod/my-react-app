@@ -33,7 +33,7 @@ const showNothing = () => {
                     <li>About us</li>
                     <li>Contacts</li>
                     <li>Account</li>
-                    <li>Cart</li>
+                    <li>Orders</li>
                 </ul>
                 <FaShoppingCart 
                     onClick={() => setCartOpen(!cartOpen)} className={`shop-cart-button ${cartOpen ? 'active' : ''}`}/>

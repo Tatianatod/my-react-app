@@ -40,7 +40,7 @@ export default function App() {
       country: "Indonesia", 
       weight: "200 g",
       category: "beans",
-      price:"10"
+      price:"50"
     },
 
         {
@@ -48,7 +48,7 @@ export default function App() {
       name: "Arabica Classic",
       img:"coffee.png",
       desc:"Classic Arabica blend from Colombia",
-      country: "Indonesia", 
+      country: "Colombia", 
       weight: "200 g",
       category: "beans",
       price:"10"
@@ -59,7 +59,7 @@ export default function App() {
       name: "Ethiopian Yirgacheffe",
       img:"coffee.png",
       desc:"Floral and fruity Ethiopian beans",
-      country: "Indonesia", 
+      country: "Ethiopia", 
       weight: "200 g",
       category: "beans",
       price:"10"
@@ -70,12 +70,34 @@ export default function App() {
       name: "Vietnam Robusta",
       img:"coffee.png",
       desc:"Strong and bold Vietnamese coffee",
-      country: "Indonesia", 
+      country: "Vietnam", 
       weight: "200 g",
       category: "beans",
       price:"10"
     },
   ])
+    /*
+    //  API Example
+    useEffect(() => {
+    fetch('https://api.sampleapis.com/coffee/hot')
+      .then(res => res.json())
+      .then(data => {
+      
+        const transformed = data.map(item => ({
+          id: item.id,
+          name: item.title,
+          img: item.image, 
+          desc: item.description,
+          country: "Unknown", 
+          weight: "200 g",
+          category: "hot",
+          price: Math.floor(Math.random() * 10 + 5) 
+        }));
+        setItems(transformed);
+      })
+      .catch(err => console.error(err));
+  }, []);
+  */
 
 //Remove from cart function
   const deleteOrder = (id) => {
@@ -102,8 +124,6 @@ export default function App() {
   const filteredItems = items.filter(item => 
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) 
   );
-
-
 
   return (
       <Router>
@@ -138,8 +158,3 @@ export default function App() {
   
   )
 }
-
-const chooseCategory = (category)  => {
-  console.log(category);
-}
-//<Categories chooseCategory={chooseCategory} />

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Item = ({ item, onAdd }) => {
     const[isFavorite, setIsFavorite] = useState(false);
 
-   return (
+  return (
     <div className="item p-4 bg-white shadow-md rounded-lg text-center relative">
       <Link to={`/item/${item.id}`}>
         <img src={"/img/" + item.img} alt={item.name} className="w-32 h-32 object-cover mb-4 mx-auto" />
